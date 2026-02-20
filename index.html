@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexaBank — Next-Gen Digital Banking</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- ===================== TOP NAVBAR ===================== -->
+<nav class="top-nav" id="topNav">
+  <div class="nav-left">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-n"></i></div>
+      <span class="logo-text">NexaBank</span>
+    </div>
+  </div>
+  <div class="nav-center">
+    <div class="search-bar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search transactions, accounts..." id="globalSearch" />
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="market-pill" id="navMarketPill">
+      <span class="market-dot up"></span>
+      <span id="navNifty">NIFTY 23,450</span>
+      <span class="mkt-arrow up">▲ 0.42%</span>
+    </div>
+    <button class="nav-icon-btn" id="notifBtn" aria-label="Notifications">
+      <i class="fa-solid fa-bell"></i>
+      <span class="badge" id="notifBadge">3</span>
+    </button>
+    <div class="profile-wrap">
+      <button class="profile-btn" id="profileBtn">
+        <img src="https://ui-avatars.com/api/?name=Rahul+Sharma&background=4f46e5&color=fff&size=40" alt="Profile" />
+        <span class="profile-name" id="navUserName">Rahul S.</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+      <div class="profile-dropdown" id="profileDropdown">
+        <div class="pd-header">
+          <img src="https://ui-avatars.com/api/?name=Rahul+Sharma&background=4f46e5&color=fff&size=60" alt="Profile" />
+          <div>
+            <div class="pd-name" id="pdName">Rahul Sharma</div>
+            <div class="pd-acc">ACC: ****4521</div>
+          </div>
+        </div>
+        <div class="pd-menu">
+          <a href="#" class="pd-item" data-page="profile"><i class="fa-solid fa-user"></i> View Profile</a>
+          <a href="#" class="pd-item"><i class="fa-solid fa-pen"></i> Edit Details</a>
+          <a href="#" class="pd-item"><i class="fa-solid fa-shield-check"></i> KYC Verification</a>
+          <a href="#" class="pd-item"><i class="fa-solid fa-circle-plus"></i> Add Another Account</a>
+          <a href="#" class="pd-item"><i class="fa-solid fa-arrows-rotate"></i> Switch Account</a>
+          <a href="#" class="pd-item"><i class="fa-solid fa-lock"></i> Security Settings</a>
+          <a href="#" class="pd-item" data-page="support"><i class="fa-solid fa-headset"></i> Help Center</a>
+        </div>
+        <button class="signout-btn" id="signoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== NOTIFICATION PANEL ===================== -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header"><span>Notifications</span><button id="clearNotif">Clear All</button></div>
+  <div class="notif-list" id="notifList"></div>
+</div>
+
+<!-- ===================== LEFT SIDEBAR ===================== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo-icon sm"><i class="fa-solid fa-n"></i></div>
+    <span>NexaBank</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="nav-item active" data-page="dashboard"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+    <a class="nav-item" data-page="accounts"><i class="fa-solid fa-wallet"></i><span>Accounts</span></a>
+    <a class="nav-item" data-page="transfer"><i class="fa-solid fa-paper-plane"></i><span>Transfer</span></a>
+    <a class="nav-item" data-page="payments"><i class="fa-solid fa-credit-card"></i><span>Payments</span></a>
+    <a class="nav-item" data-page="investments"><i class="fa-solid fa-chart-line"></i><span>Investments</span></a>
+    <a class="nav-item" data-page="loans"><i class="fa-solid fa-building-columns"></i><span>Loans</span></a>
+    <a class="nav-item" data-page="cards"><i class="fa-solid fa-id-card"></i><span>Cards</span></a>
+    <a class="nav-item" data-page="transactions"><i class="fa-solid fa-list-ul"></i><span>Transactions</span></a>
+    <a class="nav-item" data-page="analytics"><i class="fa-solid fa-chart-pie"></i><span>Analytics</span></a>
+    <a class="nav-item" data-page="stockmarket"><i class="fa-solid fa-arrow-trend-up"></i><span>Stock Market</span></a>
+    <a class="nav-item" data-page="support"><i class="fa-solid fa-headset"></i><span>Support</span></a>
+    <a class="nav-item" data-page="settings"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="session-timer"><i class="fa-solid fa-clock"></i> Session: <span id="sessionTimer">29:59</span></div>
+  </div>
+</aside>
+
+<!-- ===================== SIDEBAR OVERLAY ===================== -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ===================== MAIN CONTENT ===================== -->
+<main class="main-content" id="mainContent">
+
+  <!-- ===== LOGIN PAGE ===== -->
+  <div class="page active" id="page-login">
+    <div class="login-bg">
+      <div class="login-blobs">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+      </div>
+      <div class="login-container">
+        <div class="login-left">
+          <div class="login-logo">
+            <div class="logo-icon lg"><i class="fa-solid fa-n"></i></div>
+            <span>NexaBank</span>
+          </div>
+          <h1>Your money, <br/><span class="gradient-text">smarter.</span></h1>
+          <p>Experience next-generation digital banking with real-time insights, AI-powered financial guidance, and enterprise-grade security.</p>
+          <div class="login-features">
+            <div class="lf-item"><i class="fa-solid fa-shield-halved"></i> 256-bit Encryption</div>
+            <div class="lf-item"><i class="fa-solid fa-bolt"></i> Instant Transfers</div>
+            <div class="lf-item"><i class="fa-solid fa-chart-line"></i> Smart Analytics</div>
+          </div>
+        </div>
+        <div class="login-right">
+          <div class="login-card">
+            <h2>Secure Login</h2>
+            <p class="login-sub">Access your banking portal</p>
+            <div class="form-group">
+              <label><i class="fa-solid fa-hashtag"></i> Account Number</label>
+              <input type="text" id="loginAcc" placeholder="Enter your account number" maxlength="12" />
+            </div>
+            <div class="form-group">
+              <label><i class="fa-solid fa-user"></i> Username</label>
+              <input type="text" id="loginUser" placeholder="Enter username" />
+            </div>
+            <div class="form-group">
+              <label><i class="fa-solid fa-lock"></i> PIN</label>
+              <div class="pin-inputs" id="pinInputs">
+                <input type="password" maxlength="1" class="pin-digit" />
+                <input type="password" maxlength="1" class="pin-digit" />
+                <input type="password" maxlength="1" class="pin-digit" />
+                <input type="password" maxlength="1" class="pin-digit" />
+                <input type="password" maxlength="1" class="pin-digit" />
+                <input type="password" maxlength="1" class="pin-digit" />
+              </div>
+            </div>
+            <div class="login-options">
+              <label class="checkbox-wrap"><input type="checkbox" /> Remember this device</label>
+              <a href="#" class="forgot-link">Forgot PIN?</a>
+            </div>
+            <button class="btn-primary full" id="loginBtn">
+              <i class="fa-solid fa-right-to-bracket"></i> Login Securely
+            </button>
+            <div class="login-hint">
+              <i class="fa-solid fa-circle-info"></i>
+              Demo: Any account number, username "demo", PIN "123456"
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LANDING PAGE ===== -->
+  <div class="page" id="page-landing">
+    <!-- HERO -->
+    <section class="hero-section">
+      <div class="hero-bg-shapes">
+        <div class="hs1"></div><div class="hs2"></div><div class="hs3"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fa-solid fa-star"></i> India's #1 Digital Bank 2024</div>
+        <h1 class="hero-title">Banking That Moves<br/><span class="gradient-text">As Fast As You Do</span></h1>
+        <p class="hero-sub">Manage your wealth, investments, and daily banking with AI-powered insights and enterprise-level security. Trusted by 50 million+ customers.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="showPage('login')"><i class="fa-solid fa-right-to-bracket"></i> Access Dashboard</button>
+          <button class="btn-outline">Learn More <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span>₹2.4T+</span><p>Assets Managed</p></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span>50M+</span><p>Happy Customers</p></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span>99.99%</span><p>Uptime SLA</p></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="mock-card card-gradient-1">
+          <div class="mc-chip"><i class="fa-solid fa-microchip"></i></div>
+          <div class="mc-num">**** **** **** 4521</div>
+          <div class="mc-bottom"><div><div class="mc-label">Card Holder</div><div>Rahul Sharma</div></div><div><div class="mc-label">Expires</div><div>08/28</div></div></div>
+          <div class="mc-logo"><i class="fa-brands fa-cc-visa"></i></div>
+        </div>
+        <div class="floating-stat fs1"><i class="fa-solid fa-arrow-up"></i> ₹12,400 received</div>
+        <div class="floating-stat fs2"><i class="fa-solid fa-shield-check"></i> Secured</div>
+        <div class="floating-stat fs3"><i class="fa-solid fa-chart-line"></i> +8.4% this month</div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services-section">
+      <div class="section-head"><span class="section-tag">Our Services</span><h2>Everything You Need, <span class="gradient-text">One Platform</span></h2></div>
+      <div class="services-grid">
+        <div class="service-card"><div class="sc-icon"><i class="fa-solid fa-paper-plane"></i></div><h3>Instant Transfers</h3><p>Send money anywhere in seconds with IMPS, NEFT & UPI</p></div>
+        <div class="service-card"><div class="sc-icon"><i class="fa-solid fa-chart-line"></i></div><h3>Smart Investments</h3><p>Grow your wealth with AI-curated SIPs and mutual funds</p></div>
+        <div class="service-card"><div class="sc-icon"><i class="fa-solid fa-building-columns"></i></div><h3>Easy Loans</h3><p>Get instant personal and home loans with minimal paperwork</p></div>
+        <div class="service-card"><div class="sc-icon"><i class="fa-solid fa-qrcode"></i></div><h3>QR Payments</h3><p>Pay with QR codes at 50M+ merchant locations nationwide</p></div>
+        <div class="service-card"><div class="sc-icon"><i class="fa-solid fa-piggy-bank"></i></div><h3>Fixed Deposits</h3><p>Earn up to 8.5% interest on your savings with flexible FDs</p></div>
+        <div class="service-card"><div class="sc-icon"><i class="fa-solid fa-shield-halved"></i></div><h3>Insurance</h3><p>Comprehensive life and health insurance plans at best rates</p></div>
+      </div>
+    </section>
+
+    <!-- FEATURES GRID -->
+    <section class="features-section">
+      <div class="features-inner">
+        <div class="features-text">
+          <span class="section-tag">Why NexaBank</span>
+          <h2>Built for the <span class="gradient-text">Modern India</span></h2>
+          <p>Our platform combines cutting-edge technology with intuitive design to deliver a banking experience that's truly seamless.</p>
+          <ul class="feature-list">
+            <li><i class="fa-solid fa-check-circle"></i> Real-time fraud detection with AI</li>
+            <li><i class="fa-solid fa-check-circle"></i> Instant account opening in 5 minutes</li>
+            <li><i class="fa-solid fa-check-circle"></i> Zero hidden charges on all services</li>
+            <li><i class="fa-solid fa-check-circle"></i> 24/7 customer support availability</li>
+            <li><i class="fa-solid fa-check-circle"></i> Multi-currency international transfers</li>
+          </ul>
+          <button class="btn-primary" onclick="showPage('login')">Get Started Free</button>
+        </div>
+        <div class="features-visual">
+          <div class="fv-card">
+            <div class="fv-header">Spending Overview</div>
+            <div class="fv-chart">
+              <div class="fvc-bar" style="height:60%;background:var(--grad1)"><span>Food</span></div>
+              <div class="fvc-bar" style="height:85%;background:var(--grad2)"><span>Travel</span></div>
+              <div class="fvc-bar" style="height:45%;background:var(--grad3)"><span>Bills</span></div>
+              <div class="fvc-bar" style="height:70%;background:var(--grad1)"><span>Shop</span></div>
+              <div class="fvc-bar" style="height:55%;background:var(--grad4)"><span>Health</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECURITY -->
+    <section class="security-section">
+      <div class="section-head light"><span class="section-tag light">Security</span><h2>Your Trust, <span class="gradient-text-light">Our Priority</span></h2></div>
+      <div class="security-grid">
+        <div class="sec-card"><i class="fa-solid fa-shield-halved"></i><h3>256-bit SSL</h3><p>Military-grade encryption for all transactions</p></div>
+        <div class="sec-card"><i class="fa-solid fa-fingerprint"></i><h3>Biometric Auth</h3><p>Secure login with fingerprint and face recognition</p></div>
+        <div class="sec-card"><i class="fa-solid fa-eye-slash"></i><h3>Fraud AI</h3><p>Real-time AI monitoring blocks suspicious activity</p></div>
+        <div class="sec-card"><i class="fa-solid fa-bell"></i><h3>Smart Alerts</h3><p>Instant SMS and email alerts for every transaction</p></div>
+      </div>
+    </section>
+
+    <!-- MARKET PANEL PREVIEW -->
+    <section class="market-preview-section">
+      <div class="section-head"><span class="section-tag">Live Markets</span><h2>Stay Ahead of <span class="gradient-text">The Market</span></h2></div>
+      <div class="mini-market-cards" id="landingMarketCards"></div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2>Ready to Experience <span class="gradient-text">Next-Gen Banking?</span></h2>
+        <p>Join 50 million+ Indians who trust NexaBank for their financial journey.</p>
+        <button class="btn-primary lg" onclick="showPage('login')"><i class="fa-solid fa-rocket"></i> Open Account Now</button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo"><div class="logo-icon"><i class="fa-solid fa-n"></i></div><span class="logo-text">NexaBank</span></div>
+          <p>India's leading digital banking platform offering comprehensive financial services with cutting-edge technology and customer-first approach.</p>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>About Bank</h4>
+          <a href="#">Our Story</a><a href="#">Leadership</a><a href="#">Investors</a><a href="#">Press Room</a><a href="#">Awards</a>
+        </div>
+        <div class="footer-col">
+          <h4>Careers</h4>
+          <a href="#">Open Positions</a><a href="#">Culture & Benefits</a><a href="#">Internships</a><a href="#">Tech Careers</a>
+        </div>
+        <div class="footer-col">
+          <h4>Security</h4>
+          <a href="#">Security Center</a><a href="#">Report Fraud</a><a href="#">Insurance DICGC</a><a href="#">Safe Banking Tips</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <div class="contact-item"><i class="fa-solid fa-phone"></i> 1800-XXX-NEXA (Toll Free)</div>
+          <div class="contact-item"><i class="fa-solid fa-phone"></i> +91-22-XXXX-XXXX (International)</div>
+          <div class="contact-item"><i class="fa-solid fa-envelope"></i> care@nexabank.in</div>
+          <div class="contact-item"><i class="fa-solid fa-clock"></i> 24/7 Support Available</div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <span>© 2024 NexaBank Ltd. All Rights Reserved.</span>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Grievance Redressal</a>
+        </div>
+        <div class="footer-reg">
+          <span>RBI Licence No: XXXX | SEBI Registered | DICGC Member</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===== DASHBOARD PAGE ===== -->
+  <div class="page" id="page-dashboard">
+    <div class="dash-layout">
+      <div class="dash-main">
+        <div class="page-header">
+          <div><h2 class="page-title">Good Morning, <span id="dashUserName">Rahul</span> 👋</h2><p class="page-sub">Here's your financial overview for today.</p></div>
+          <div class="ph-actions">
+            <button class="btn-sm" onclick="showPage('transfer')"><i class="fa-solid fa-paper-plane"></i> Send Money</button>
+            <button class="btn-sm outline" onclick="showPage('transactions')"><i class="fa-solid fa-list"></i> Transactions</button>
+          </div>
+        </div>
+
+        <!-- BALANCE CARDS -->
+        <div class="balance-cards" id="balanceCards"></div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="quick-actions">
+          <h3 class="section-title">Quick Actions</h3>
+          <div class="qa-grid">
+            <button class="qa-item" onclick="showPage('transfer')"><i class="fa-solid fa-paper-plane"></i><span>Transfer</span></button>
+            <button class="qa-item" onclick="showPage('payments')"><i class="fa-solid fa-mobile-screen"></i><span>Recharge</span></button>
+            <button class="qa-item" onclick="showPage('payments')"><i class="fa-solid fa-file-invoice"></i><span>Pay Bills</span></button>
+            <button class="qa-item" onclick="showPage('investments')"><i class="fa-solid fa-chart-line"></i><span>Invest</span></button>
+            <button class="qa-item" onclick="showPage('loans')"><i class="fa-solid fa-building-columns"></i><span>Loans</span></button>
+            <button class="qa-item" onclick="showPage('cards')"><i class="fa-solid fa-credit-card"></i><span>Cards</span></button>
+            <button class="qa-item" onclick="showPage('stockmarket')"><i class="fa-solid fa-arrow-trend-up"></i><span>Stocks</span></button>
+            <button class="qa-item" onclick="showPage('analytics')"><i class="fa-solid fa-chart-pie"></i><span>Analytics</span></button>
+          </div>
+        </div>
+
+        <!-- RECENT TRANSACTIONS -->
+        <div class="recent-txns">
+          <div class="rt-header"><h3>Recent Transactions</h3><button class="btn-link" onclick="showPage('transactions')">View All</button></div>
+          <div id="recentTxnList"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="dash-right">
+        <div class="market-widget" id="dashMarketWidget"></div>
+        <div class="spending-widget">
+          <h3>Monthly Spending</h3>
+          <div class="spending-donut" id="spendingDonut"></div>
+          <div class="spending-legend" id="spendingLegend"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ACCOUNTS PAGE ===== -->
+  <div class="page" id="page-accounts">
+    <div class="page-header"><div><h2 class="page-title">My Accounts</h2><p class="page-sub">Manage all your accounts in one place.</p></div><button class="btn-primary" onclick="toast('Account addition request sent!','success')"><i class="fa-solid fa-plus"></i> Add Account</button></div>
+    <div id="accountCards" class="account-cards-grid"></div>
+    <div class="acc-details-section">
+      <div class="acc-mini-actions">
+        <h3>Account Services</h3>
+        <div class="ama-grid">
+          <div class="ama-item" onclick="toast('Statement downloading...','info')"><i class="fa-solid fa-file-pdf"></i><span>Statement</span></div>
+          <div class="ama-item" onclick="toast('IFSC copied!','success')"><i class="fa-solid fa-copy"></i><span>Copy IFSC</span></div>
+          <div class="ama-item" onclick="toast('Cheque book requested!','success')"><i class="fa-solid fa-book"></i><span>Cheque Book</span></div>
+          <div class="ama-item" onclick="toast('Passbook updating...','info')"><i class="fa-solid fa-book-open"></i><span>Passbook</span></div>
+          <div class="ama-item" onclick="toast('Interest certificate generated!','success')"><i class="fa-solid fa-certificate"></i><span>Interest Cert.</span></div>
+          <div class="ama-item" onclick="toast('Account linked to new UPI!','success')"><i class="fa-solid fa-link"></i><span>Link UPI</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TRANSFER PAGE ===== -->
+  <div class="page" id="page-transfer">
+    <div class="page-header"><div><h2 class="page-title">Fund Transfer</h2><p class="page-sub">Send money securely.</p></div></div>
+    <div class="transfer-layout">
+      <div class="transfer-form-card">
+        <div class="transfer-tabs">
+          <button class="tt active" data-tab="neft">NEFT</button>
+          <button class="tt" data-tab="imps">IMPS</button>
+          <button class="tt" data-tab="rtgs">RTGS</button>
+          <button class="tt" data-tab="upi">UPI</button>
+        </div>
+        <div class="form-group">
+          <label>From Account</label>
+          <select class="form-control" id="fromAccount">
+            <option>Savings A/C — ****4521 (₹1,24,350.00)</option>
+            <option>Current A/C — ****7890 (₹5,62,000.00)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Beneficiary Name</label>
+          <input type="text" class="form-control" id="beneName" placeholder="Enter beneficiary name" />
+        </div>
+        <div class="form-group">
+          <label>Account Number / UPI ID</label>
+          <input type="text" class="form-control" id="beneAcc" placeholder="Enter account no. or UPI ID" />
+        </div>
+        <div class="form-group">
+          <label>IFSC Code</label>
+          <input type="text" class="form-control" id="ifscCode" placeholder="e.g., SBIN0001234" />
+        </div>
+        <div class="form-group">
+          <label>Amount (₹)</label>
+          <input type="number" class="form-control" id="transferAmt" placeholder="Enter amount" />
+        </div>
+        <div class="form-group">
+          <label>Remarks (Optional)</label>
+          <input type="text" class="form-control" id="transferRemarks" placeholder="Add a note" />
+        </div>
+        <button class="btn-primary full" id="transferBtn"><i class="fa-solid fa-paper-plane"></i> Proceed to Transfer</button>
+      </div>
+      <div class="transfer-right">
+        <div class="beneficiaries-card">
+          <h3>Saved Beneficiaries</h3>
+          <div id="savedBeneficiaries"></div>
+        </div>
+      </div>
+    </div>
+    <!-- TRANSFER MODAL -->
+    <div class="modal-overlay" id="transferModal">
+      <div class="modal-card">
+        <div class="modal-icon success"><i class="fa-solid fa-check"></i></div>
+        <h3>Transfer Successful!</h3>
+        <p id="transferModalMsg">₹5,000 transferred to Priya Patel</p>
+        <div class="txn-ref">Ref: TXN<span id="txnRef"></span></div>
+        <button class="btn-primary full" onclick="closeModal('transferModal')">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAYMENTS PAGE ===== -->
+  <div class="page" id="page-payments">
+    <div class="page-header"><div><h2 class="page-title">Payments & Bills</h2><p class="page-sub">Pay bills and recharge instantly.</p></div></div>
+    <div class="payments-grid">
+      <div class="payment-section">
+        <h3>Mobile Recharge</h3>
+        <div class="form-group"><label>Mobile Number</label><input type="text" class="form-control" placeholder="Enter mobile number" /></div>
+        <div class="form-group"><label>Operator</label>
+          <div class="operator-grid">
+            <div class="op-item active">Jio</div><div class="op-item">Airtel</div><div class="op-item">Vi</div><div class="op-item">BSNL</div>
+          </div>
+        </div>
+        <div class="recharge-plans">
+          <div class="rp-item" onclick="selectPlan(this,'₹299')"><div class="rp-amt">₹299</div><div class="rp-desc">2GB/Day, Unlimited calls, 28 days</div></div>
+          <div class="rp-item" onclick="selectPlan(this,'₹399')"><div class="rp-amt">₹399</div><div class="rp-desc">2.5GB/Day, Unlimited calls, 56 days</div></div>
+          <div class="rp-item" onclick="selectPlan(this,'₹599')"><div class="rp-amt">₹599</div><div class="rp-desc">3GB/Day, Unlimited calls, 84 days</div></div>
+        </div>
+        <button class="btn-primary full" onclick="toast('Recharge successful! ✅','success')"><i class="fa-solid fa-bolt"></i> Recharge Now</button>
+      </div>
+
+      <div class="payment-section">
+        <h3>Bill Payments</h3>
+        <div class="bill-types">
+          <div class="bill-type" onclick="toast('Electricity bill fetched!','info')"><i class="fa-solid fa-bolt"></i><span>Electricity</span></div>
+          <div class="bill-type" onclick="toast('Water bill fetched!','info')"><i class="fa-solid fa-droplet"></i><span>Water</span></div>
+          <div class="bill-type" onclick="toast('Gas bill fetched!','info')"><i class="fa-solid fa-fire-flame-curved"></i><span>Gas</span></div>
+          <div class="bill-type" onclick="toast('DTH bill fetched!','info')"><i class="fa-solid fa-satellite-dish"></i><span>DTH</span></div>
+          <div class="bill-type" onclick="toast('Broadband bill fetched!','info')"><i class="fa-solid fa-wifi"></i><span>Broadband</span></div>
+          <div class="bill-type" onclick="toast('Insurance due fetched!','info')"><i class="fa-solid fa-heart-pulse"></i><span>Insurance</span></div>
+        </div>
+        <div class="form-group" style="margin-top:20px"><label>Consumer Number</label><input type="text" class="form-control" placeholder="Enter consumer number" /></div>
+        <button class="btn-primary full" onclick="toast('Bill paid successfully! ✅','success')"><i class="fa-solid fa-check"></i> Pay Bill</button>
+      </div>
+
+      <div class="payment-section">
+        <h3>QR Pay</h3>
+        <div class="qr-display">
+          <div class="qr-box" id="qrBox">
+            <div class="qr-inner">
+              <div class="qr-pattern"></div>
+              <div class="qr-label">Scan to Pay</div>
+            </div>
+          </div>
+          <div class="qr-amount-input">
+            <input type="number" class="form-control" placeholder="Enter amount" id="qrAmount" />
+            <button class="btn-primary full" onclick="generateQR()"><i class="fa-solid fa-qrcode"></i> Generate QR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== INVESTMENTS PAGE ===== -->
+  <div class="page" id="page-investments">
+    <div class="page-header"><div><h2 class="page-title">Investments</h2><p class="page-sub">Grow your wealth intelligently.</p></div></div>
+    <div class="inv-tabs">
+      <button class="inv-tab active" onclick="switchInvTab(this,'sip')">SIP Calculator</button>
+      <button class="inv-tab" onclick="switchInvTab(this,'fd')">Fixed Deposits</button>
+      <button class="inv-tab" onclick="switchInvTab(this,'mf')">Mutual Funds</button>
+    </div>
+    <div class="inv-content" id="invContent"></div>
+  </div>
+
+  <!-- ===== LOANS PAGE ===== -->
+  <div class="page" id="page-loans">
+    <div class="page-header"><div><h2 class="page-title">Loans</h2><p class="page-sub">Get the funding you need.</p></div></div>
+    <div class="loans-grid">
+      <div class="loan-type-card" onclick="showLoanEMI('Personal Loan','10.5%')"><div class="ltc-icon"><i class="fa-solid fa-user"></i></div><h3>Personal Loan</h3><p>Up to ₹50 Lakhs at 10.5% p.a.</p><div class="ltc-tag">Instant Approval</div></div>
+      <div class="loan-type-card" onclick="showLoanEMI('Home Loan','8.5%')"><div class="ltc-icon"><i class="fa-solid fa-house"></i></div><h3>Home Loan</h3><p>Up to ₹5 Crores at 8.5% p.a.</p><div class="ltc-tag">Best Rate</div></div>
+      <div class="loan-type-card" onclick="showLoanEMI('Car Loan','9.0%')"><div class="ltc-icon"><i class="fa-solid fa-car"></i></div><h3>Car Loan</h3><p>Up to ₹20 Lakhs at 9.0% p.a.</p><div class="ltc-tag">Quick Disbursal</div></div>
+      <div class="loan-type-card" onclick="showLoanEMI('Education Loan','7.5%')"><div class="ltc-icon"><i class="fa-solid fa-graduation-cap"></i></div><h3>Education Loan</h3><p>Up to ₹1 Crore at 7.5% p.a.</p><div class="ltc-tag">Tax Benefit</div></div>
+    </div>
+    <div class="emi-calculator" id="emiCalculator">
+      <h3>EMI Calculator — <span id="loanTypeLabel">Personal Loan</span></h3>
+      <div class="emi-form">
+        <div class="form-group"><label>Loan Amount (₹)</label><input type="range" id="loanAmt" min="100000" max="5000000" value="500000" oninput="calcEMI()" /><div class="range-val">₹<span id="loanAmtVal">5,00,000</span></div></div>
+        <div class="form-group"><label>Tenure (Years)</label><input type="range" id="loanTenure" min="1" max="30" value="5" oninput="calcEMI()" /><div class="range-val"><span id="loanTenureVal">5</span> Years</div></div>
+        <div class="form-group"><label>Interest Rate (%)</label><input type="range" id="loanRate" min="5" max="20" value="10.5" step="0.1" oninput="calcEMI()" /><div class="range-val"><span id="loanRateVal">10.5</span>%</div></div>
+      </div>
+      <div class="emi-result" id="emiResult"></div>
+    </div>
+  </div>
+
+  <!-- ===== CARDS PAGE ===== -->
+  <div class="page" id="page-cards">
+    <div class="page-header"><div><h2 class="page-title">My Cards</h2><p class="page-sub">Manage your debit and credit cards.</p></div><button class="btn-primary" onclick="toast('Card application started!','info')"><i class="fa-solid fa-plus"></i> Apply New Card</button></div>
+    <div id="cardsList" class="cards-list"></div>
+  </div>
+
+  <!-- ===== TRANSACTIONS PAGE ===== -->
+  <div class="page" id="page-transactions">
+    <div class="page-header"><div><h2 class="page-title">Transactions</h2><p class="page-sub">Your complete transaction history.</p></div>
+      <button class="btn-primary" onclick="toast('Statement downloaded!','success')"><i class="fa-solid fa-download"></i> Download Statement</button>
+    </div>
+    <div class="txn-filters">
+      <input type="text" placeholder="🔍 Search transactions..." class="form-control" id="txnSearch" oninput="filterTxns()" />
+      <select class="form-control" id="txnType" onchange="filterTxns()"><option value="">All Types</option><option value="credit">Credit</option><option value="debit">Debit</option></select>
+      <select class="form-control" id="txnPeriod" onchange="filterTxns()"><option value="">All Period</option><option value="7">Last 7 Days</option><option value="30">Last 30 Days</option><option value="90">Last 90 Days</option></select>
+    </div>
+    <div class="txn-table-wrap">
+      <table class="txn-table" id="txnTable">
+        <thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Mode</th><th>Amount</th><th>Balance</th><th>Status</th></tr></thead>
+        <tbody id="txnTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== ANALYTICS PAGE ===== -->
+  <div class="page" id="page-analytics">
+    <div class="page-header"><div><h2 class="page-title">Analytics</h2><p class="page-sub">Deep insights into your financial health.</p></div></div>
+    <div class="analytics-grid" id="analyticsGrid"></div>
+  </div>
+
+  <!-- ===== STOCK MARKET PAGE ===== -->
+  <div class="page" id="page-stockmarket">
+    <div class="page-header">
+      <div><h2 class="page-title">📈 Stock Market</h2><p class="page-sub">Live market data, indices & trending stocks — simulated in real time.</p></div>
+      <div class="ph-actions">
+        <span class="market-time" id="marketTime"></span>
+        <span class="market-status-badge" id="marketStatusBadge">● MARKET OPEN</span>
+      </div>
+    </div>
+
+    <!-- INDEX BANNER -->
+    <div class="index-banner" id="indexBanner"></div>
+
+    <!-- TABS -->
+    <div class="sm-tabs">
+      <button class="sm-tab active" onclick="switchSMTab(this,'overview')">Overview</button>
+      <button class="sm-tab" onclick="switchSMTab(this,'indices')">Indices</button>
+      <button class="sm-tab" onclick="switchSMTab(this,'gainers')">Top Gainers</button>
+      <button class="sm-tab" onclick="switchSMTab(this,'losers')">Top Losers</button>
+      <button class="sm-tab" onclick="switchSMTab(this,'watchlist')">My Watchlist</button>
+      <button class="sm-tab" onclick="switchSMTab(this,'portfolio')">Portfolio</button>
+    </div>
+
+    <div class="sm-content" id="smContent"></div>
+  </div>
+
+  <!-- ===== SUPPORT PAGE ===== -->
+  <div class="page" id="page-support">
+    <div class="page-header"><div><h2 class="page-title">Help & Support</h2><p class="page-sub">We're here to help 24/7.</p></div></div>
+    <div class="support-grid">
+      <div class="support-card"><i class="fa-solid fa-phone"></i><h3>Call Us</h3><p>1800-XXX-NEXA (Toll Free)<br/>+91-22-XXXX-XXXX</p><button class="btn-primary" onclick="toast('Calling 1800-XXX-NEXA...','info')">Call Now</button></div>
+      <div class="support-card"><i class="fa-solid fa-message"></i><h3>Chat</h3><p>Chat with our AI assistant or connect to a live agent instantly.</p><button class="btn-primary" onclick="toast('Connecting to agent...','info')">Start Chat</button></div>
+      <div class="support-card"><i class="fa-solid fa-envelope"></i><h3>Email</h3><p>care@nexabank.in<br/>Response within 4 hours</p><button class="btn-primary" onclick="toast('Opening email client...','info')">Send Email</button></div>
+      <div class="support-card"><i class="fa-solid fa-ticket"></i><h3>Raise Ticket</h3><p>Track your queries with our ticket management system.</p><button class="btn-primary" onclick="toast('Ticket raised! ID: TKT'+Math.floor(Math.random()*99999),'success')">Raise Ticket</button></div>
+    </div>
+    <div class="faq-section">
+      <h3>Frequently Asked Questions</h3>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </div>
+
+  <!-- ===== SETTINGS PAGE ===== -->
+  <div class="page" id="page-settings">
+    <div class="page-header"><div><h2 class="page-title">Settings</h2><p class="page-sub">Customize your banking experience.</p></div></div>
+    <div class="settings-grid">
+      <div class="settings-card">
+        <h3><i class="fa-solid fa-bell"></i> Notifications</h3>
+        <div class="setting-item"><span>Transaction Alerts</span><div class="toggle on" onclick="toggleSetting(this)"><div class="toggle-ball"></div></div></div>
+        <div class="setting-item"><span>Login Alerts</span><div class="toggle on" onclick="toggleSetting(this)"><div class="toggle-ball"></div></div></div>
+        <div class="setting-item"><span>Promotional Offers</span><div class="toggle" onclick="toggleSetting(this)"><div class="toggle-ball"></div></div></div>
+        <div class="setting-item"><span>Market News</span><div class="toggle on" onclick="toggleSetting(this)"><div class="toggle-ball"></div></div></div>
+      </div>
+      <div class="settings-card">
+        <h3><i class="fa-solid fa-lock"></i> Security</h3>
+        <div class="setting-item"><span>Biometric Login</span><div class="toggle on" onclick="toggleSetting(this)"><div class="toggle-ball"></div></div></div>
+        <div class="setting-item"><span>Two-Factor Auth</span><div class="toggle on" onclick="toggleSetting(this)"><div class="toggle-ball"></div></div></div>
+        <div class="setting-item"><span>Transaction PIN</span><div class="toggle on" onclick="toggleSetting(this)"><div class="toggle-ball"></div></div></div>
+      </div>
+      <div class="settings-card">
+        <h3><i class="fa-solid fa-palette"></i> Appearance</h3>
+        <div class="setting-item"><span>Dark Mode</span><div class="toggle" onclick="toggleSetting(this)" id="darkModeToggle"><div class="toggle-ball"></div></div></div>
+        <div class="setting-item"><span>Compact View</span><div class="toggle" onclick="toggleSetting(this)"><div class="toggle-ball"></div></div></div>
+      </div>
+      <div class="settings-card">
+        <h3><i class="fa-solid fa-language"></i> Preferences</h3>
+        <div class="form-group"><label>Language</label><select class="form-control"><option>English</option><option>Hindi</option><option>Tamil</option><option>Telugu</option></select></div>
+        <div class="form-group"><label>Currency Display</label><select class="form-control"><option>INR (₹)</option><option>USD ($)</option></select></div>
+      </div>
+    </div>
+    <button class="btn-primary" style="margin-top:20px" onclick="toast('Settings saved!','success')"><i class="fa-solid fa-save"></i> Save Settings</button>
+  </div>
+
+</main>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- ===== SESSION TIMEOUT MODAL ===== -->
+<div class="modal-overlay" id="sessionModal">
+  <div class="modal-card">
+    <div class="modal-icon warn"><i class="fa-solid fa-clock"></i></div>
+    <h3>Session Expiring!</h3>
+    <p>Your session will expire in <span id="sessionCountdown">30</span> seconds due to inactivity.</p>
+    <div style="display:flex;gap:12px;margin-top:20px">
+      <button class="btn-primary full" id="extendSession">Continue Session</button>
+      <button class="btn-outline full" id="logoutNow">Logout Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LOGOUT CONFIRM MODAL ===== -->
+<div class="modal-overlay" id="logoutModal">
+  <div class="modal-card">
+    <div class="modal-icon warn"><i class="fa-solid fa-right-from-bracket"></i></div>
+    <h3>Confirm Logout</h3>
+    <p>Are you sure you want to logout from NexaBank?</p>
+    <div style="display:flex;gap:12px;margin-top:20px">
+      <button class="btn-primary full" id="confirmLogout">Yes, Logout</button>
+      <button class="btn-outline full" onclick="closeModal('logoutModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
